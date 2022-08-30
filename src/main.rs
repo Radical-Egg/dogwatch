@@ -3,19 +3,21 @@ use dbus::blocking::Proxy;
 use tokio::time::{sleep, Duration};
 use clap::Parser;
 
-
 fn inhibit(proxy: &Proxy<&Connection>) -> Result<u32, Box<dyn std::error::Error>> {
-    let (cookie,): (u32,) = proxy.method_call("org.freedesktop.ScreenSaver", "Inhibit", ("espresso", "requested by user Inhibiting Sleep via dogwatch"))?;
+    let (cookie,): (u32,) = proxy.method_call(
+        "org.freedesktop.ScreenSaver", 
+        "Inhibit", 
+        ("espresso", "requested by user Inhibiting Sleep via dogwatch"))?;
     Ok(cookie)
 }
 
 fn uninhibit(proxy: &Proxy<&Connection>, cookie: u32) -> Result<(), Box<dyn std::error::Error>> {
-    proxy.method_call("org.freedesktop.ScreenSaver", "UnInhibit", (cookie,))?;
-
+    proxy.method_call(
+        "org.freedesktop.ScreenSaver", 
+        "UnInhibit", 
+        (cookie,))?;
     Ok(())
 }
-
-// TODO remove Debug
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -24,10 +26,9 @@ fn uninhibit(proxy: &Proxy<&Connection>, cookie: u32) -> Result<(), Box<dyn std:
 #[clap(version = "1.0")]
 #[clap(about = "This program will prevent machine from sleeping.", long_about = None)]
 
-// TODO explore not having a default time and checking if it is none
-// TODO add help message to time
 struct Args {
    #[clap(short, long, value_parser, default_value_t = 4294967295)]
+   #[clap(help = "Specify time in minutes")]
    time: u64,
 }
 
