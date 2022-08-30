@@ -9,3 +9,4 @@ edition = "2021"
 clap = { version = "3.2.18", features = ["derive"] }
 tokio = { version = "1", features = ["full"] }
 dbus = "0.9.6"
+signal-hook = "0.3.14"
