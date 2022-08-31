@@ -1,23 +1,8 @@
-use dbus::blocking::Connection;
-use dbus::blocking::Proxy;
-use tokio::time::{sleep, Duration};
+use dbus::blocking::{SyncConnection, Proxy};
 use clap::Parser;
-
-fn inhibit(proxy: &Proxy<&Connection>) -> Result<u32, Box<dyn std::error::Error>> {
-    let (cookie,): (u32,) = proxy.method_call(
-        "org.freedesktop.ScreenSaver", 
-        "Inhibit", 
-        ("espresso", "requested by user Inhibiting Sleep via dogwatch"))?;
-    Ok(cookie)
-}
-
-fn uninhibit(proxy: &Proxy<&Connection>, cookie: u32) -> Result<(), Box<dyn std::error::Error>> {
-    proxy.method_call(
-        "org.freedesktop.ScreenSaver", 
-        "UnInhibit", 
-        (cookie,))?;
-    Ok(())
-}
+use signal_hook::{consts::SIGINT, iterator::Signals};
+use std::{ process, time::Duration, thread::sleep };
+use crossbeam_utils::thread;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -32,20 +17,46 @@ struct Args {
    time: u64,
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let conn: Connection;
-    let proxy: Proxy<&Connection>;
+fn inhibit(proxy: &Proxy<&SyncConnection>) -> Result<u32, Box<dyn std::error::Error>> {
+    let (cookie,): (u32,) = proxy.method_call(
+        "org.freedesktop.ScreenSaver", 
+        "Inhibit", 
+        ("espresso", "requested by user Inhibiting Sleep via dogwatch"))?;
+    Ok(cookie)
+}
+
+fn uninhibit(proxy: &Proxy<&SyncConnection>, cookie: u32) -> Result<(), Box<dyn std::error::Error>> {
+    proxy.method_call(
+        "org.freedesktop.ScreenSaver", 
+        "UnInhibit", 
+        (cookie,))?;
+    Ok(println!("ScreenSaver and Sleep re-enabled...Exiting!"))
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let inhibit_cookie: u32;
     let args = Args::parse();
+    let mut signals = Signals::new(&[SIGINT])?;
+    let conn = SyncConnection::new_session()?;
+    let proxy: Proxy<&SyncConnection> = conn.with_proxy("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
+    let prox_copy = proxy.clone();
 
-    conn = Connection::new_session()?;
-    proxy = conn.with_proxy("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
     inhibit_cookie = inhibit(&proxy)?;
+    println!("Sleep and ScreenSaver Disabled...Press Cntrl+C to Exit...");
 
-    sleep(Duration::from_secs(60*args.time)).await;
-
-    // TODO trap uninhibit so that it runs no matter how the program exits
-    uninhibit(&proxy, inhibit_cookie)?;
+    thread::scope(|s| {
+        s.spawn(move |_| {
+            for _sig in signals.forever() {
+                uninhibit(&prox_copy, inhibit_cookie).unwrap();
+                process::exit(0x0100);
+            }
+        });
+        s.spawn(move |_| {
+            sleep(Duration::from_secs(60*args.time));
+            uninhibit(&proxy, inhibit_cookie).unwrap();
+            process::exit(0x0100);
+        });
+    }).unwrap();
+        
     Ok(())
 }
