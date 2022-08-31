@@ -3,6 +3,7 @@ name = "dogwatch"
 version = "1.0.0"
 edition = "2021"
 license = "MIT"
+release = "1"
 description = "Prevent your computer from sleeping using dbus"
 readme = "README.md"
 repository = "https://github.com/Radical-Egg/dogwatch"
@@ -15,9 +16,9 @@ signal-hook = "0.3.14"
 crossbeam-utils = "0.8.11"
 
 [package.metadata.generate-rpm]
+release = "1"
 assets = [
     { source = "target/release/dogwatch", dest = "/usr/bin/dogwatch", mode = "0755"},
     { source = "LICENSE", dest = "/usr/share/doc/dogwatch/LICENSE", mode = "0644"},
     { source = "README.md", dest = "/usr/share/doc/dogwatch/README", mode = "0644"}
 ]
-release = "1"

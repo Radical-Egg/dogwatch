@@ -1,6 +1,6 @@
 # dogwatch
 
-You've been working the dogwatch for a few weeks now. It's past the point in the night where Fred Durst's career doesn't seem like a joke anymore, perhaps he was serious this whole time. You just need a power nap to get you through the rest of the night. Your manager has heen working remote for the past two years but he could show back up any day now. If only there was a way to keep my computer from sleeping with a single command so that you can take a quick nap.
+You've been working the dogwatch for a few weeks now. It's past the point in the night where Fred Durst doesn't seem like he's joking about his career anymore, perhaps he was serious this whole time. You just need a power nap to get you through the rest of the night. Your manager has heen working remote for the past two years but he could show back up any day now. If only there was a way to keep my computer from sleeping with a single command so that you can take a quick nap.
 
 ## Usage
 

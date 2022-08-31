@@ -21,7 +21,7 @@ fn inhibit(proxy: &Proxy<&SyncConnection>) -> Result<u32, Box<dyn std::error::Er
     let (cookie,): (u32,) = proxy.method_call(
         "org.freedesktop.ScreenSaver", 
         "Inhibit", 
-        ("espresso", "requested by user Inhibiting Sleep via dogwatch"))?;
+        ("dogwatch", "requested by user Inhibiting Sleep via dogwatch"))?;
     Ok(cookie)
 }
 
