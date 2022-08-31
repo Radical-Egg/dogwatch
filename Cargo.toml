@@ -1,6 +1,6 @@
 [package]
 name = "dogwatch"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 license = "MIT"
 description = "Prevent your computer from sleeping using dbus"
@@ -20,3 +20,4 @@ assets = [
     { source = "LICENSE", dest = "/usr/share/doc/dogwatch/LICENSE", mode = "0644"},
     { source = "README.md", dest = "/usr/share/doc/dogwatch/README", mode = "0644"}
 ]
+release = "1"
