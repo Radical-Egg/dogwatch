@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "3.2.18", features = ["derive"] }
-tokio = { version = "1", features = ["full"] }
 dbus = "0.9.6"
 signal-hook = "0.3.14"
 crossbeam-utils = "0.8.11"
