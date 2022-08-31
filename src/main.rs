@@ -1,10 +1,12 @@
-use dbus::blocking::Connection;
+use dbus::blocking::SyncConnection;
 use dbus::blocking::Proxy;
 use clap::Parser;
 use signal_hook::{consts::SIGINT, iterator::Signals};
-use std::{ thread, process time::Duration };
+use std::{  process, time::Duration };
+use crossbeam_utils::thread;
+use std::thread::sleep;
 
-fn inhibit(proxy: &Proxy<&Connection>) -> Result<u32, Box<dyn std::error::Error>> {
+fn inhibit(proxy: &Proxy<&SyncConnection>) -> Result<u32, Box<dyn std::error::Error>> {
     let (cookie,): (u32,) = proxy.method_call(
         "org.freedesktop.ScreenSaver", 
         "Inhibit", 
@@ -12,7 +14,7 @@ fn inhibit(proxy: &Proxy<&Connection>) -> Result<u32, Box<dyn std::error::Error>
     Ok(cookie)
 }
 
-fn uninhibit(proxy: &Proxy<&Connection>, cookie: u32) -> Result<(), Box<dyn std::error::Error>> {
+fn uninhibit(proxy: &Proxy<&SyncConnection>, cookie: u32) -> Result<(), Box<dyn std::error::Error>> {
     proxy.method_call(
         "org.freedesktop.ScreenSaver", 
         "UnInhibit", 
@@ -33,32 +35,27 @@ struct Args {
    time: u64,
 }
 
-#[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let conn: Connection;
-    let proxy: Proxy<&Connection>;
     let inhibit_cookie: u32;
     let args = Args::parse();
     let mut signals = Signals::new(&[SIGINT])?;
 
-    conn = Connection::new_session()?;
-    proxy = conn.with_proxy("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
+    let conn = SyncConnection::new_session()?;
+    let proxy: Proxy<&SyncConnection> = conn.with_proxy("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
     inhibit_cookie = inhibit(&proxy)?;
 
-    thread::spawn(move || {
-        for sig in signals.forever() {
-            println!("Received signal {:?}", sig);
-            uninhibit(&proxy, inhibit_cookie);
-            process::exit(0x0100);
-        }
-    });
-
-    thread::sleep(Duration::from_secs(60*args.time));
-
-    // TODO trap uninhibit so that it runs no matter how the program exits
+    thread::scope(|s| {
+        s.spawn(move |_| {
+            for sig in signals.forever() {
+                println!("Received signal {:?}", sig);
+                uninhibit(&proxy, inhibit_cookie).unwrap();
+                process::exit(0x0100);
+            }
+        });
+    }).unwrap();
 
 
-    //thread::sleep(Duration::from_secs(2));
+    sleep(Duration::from_secs(60*args.time));
     
     Ok(())
 }
