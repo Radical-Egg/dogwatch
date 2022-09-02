@@ -38,7 +38,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let mut signals = Signals::new(&[SIGINT])?;
     let conn = SyncConnection::new_session()?;
-    let proxy: Proxy<&SyncConnection> = conn.with_proxy("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
+    let proxy: Proxy<&SyncConnection> = conn.with_proxy(
+        "org.freedesktop.ScreenSaver", 
+        "/org/freedesktop/ScreenSaver", Duration::from_millis(5000));
     let prox_copy = proxy.clone();
 
     inhibit_cookie = inhibit(&proxy)?;

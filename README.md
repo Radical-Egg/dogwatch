@@ -7,6 +7,21 @@ You've been working the dogwatch for a few weeks now. It's past the point in the
 - Stay awake forever by running ```dogwatch```
 - Stay awake for a specific amount of time (minutes) ```dogwatch --time 1```
 
+## Building
+
+- If you are using a distro that uses RPMs you can download the RPM in the releases tab and install it with ```rpm -ivh```
+- ```git clone https://github.com/Radical-Egg/dogwatch```
+- ```cd dogwatch```
+- use ```cargo run``` or ```cargo build```
+
+## Feature Roadmap
+
+- Self Driving Screen Saver
+- Fully Autonomous Self Driving Screen Saver (please don't try this at home)
+- Internet wide ad blocking
+- Basic calculator functionality
+
+
 ## Disclaimer
 
 Fred Durst might be a cool guy I don't actually know anything about him or his career. This is my frist project in Rust. Rust seems pretty cool. I wanted to learn about Dbus and this seemed like a cool way to do that. I found some good resources for anyone who is looking into Dbus.
