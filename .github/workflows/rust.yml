@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install libbus deps
+      run: sudo apt install libdbus-1-dev
     - name: Run tests
       run: cargo test --test dogwatch_test
     - name: Build
