@@ -7,7 +7,7 @@ use std::{process, thread::sleep, time::Duration};
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 #[clap(name = "Dogwatch")]
-#[clap(author = "R.Egg <egg95@protonmail.com>")]
+#[clap(author = "author1:R.Egg <egg95@protonmail.com>author2:S.Ordo <ordo83@protonmail.com")]
 #[clap(version = "1.0")]
 #[clap(about = "This program will prevent machine from sleeping.", long_about = None)]
 
