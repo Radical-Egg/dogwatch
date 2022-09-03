@@ -1,10 +1,14 @@
-name: Rust
+name: Build
 
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '**/README.md'
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - '**/README.md'
 
 env:
   CARGO_TERM_COLOR: always
@@ -16,8 +20,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Run tests
-      run: cargo test --test dogwatch_test
+    - name: Install libbus deps
+      run: sudo apt install libdbus-1-dev
     - name: Build
       run: cargo build --release
     - name: Strip Debug
@@ -28,5 +32,5 @@ jobs:
       run: cargo generate-rpm
     - uses: actions/upload-artifact@v3
       with:
-        name: dogwatch.rpm
+        name: dogwatch
         path: ./target/generate-rpm/dogwatch*.rpm
