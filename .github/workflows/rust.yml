@@ -28,5 +28,5 @@ jobs:
       run: cargo generate-rpm
     - uses: actions/upload-artifact@v3
       with:
-        name: dogwatch.rpm
+        name: dogwatch
         path: ./target/generate-rpm/dogwatch*.rpm
