@@ -1,3 +1,4 @@
+use dogwatch;
 use clap::Parser;
 use crossbeam_utils::thread;
 use dbus::blocking::{Proxy, SyncConnection};
@@ -7,36 +8,14 @@ use std::{process, thread::sleep, time::Duration};
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 #[clap(name = "Dogwatch")]
-#[clap(author = "author1:R.Egg <egg95@protonmail.com>author2:S.Ordo <ordo83@protonmail.com")]
+#[clap(author = "author1:R.Egg <egg95@protonmail.com> author2:S.Ordo <ordo83@protonmail.com")]
 #[clap(version = "1.0")]
 #[clap(about = "This program will prevent machine from sleeping.", long_about = None)]
-
 struct Args {
     #[clap(short, long, value_parser, default_value_t = 4294967295)]
     #[clap(help = "Specify time in minutes")]
     time: u64,
 }
-
-fn inhibit(proxy: &Proxy<&SyncConnection>) -> Result<u32, Box<dyn std::error::Error>> {
-    let (cookie,): (u32,) = proxy.method_call(
-        "org.freedesktop.ScreenSaver",
-        "Inhibit",
-        (
-            "dogwatch",
-            "requested by user Inhibiting Sleep via dogwatch",
-        ),
-    )?;
-    Ok(cookie)
-}
-
-fn uninhibit(
-    proxy: &Proxy<&SyncConnection>,
-    cookie: u32,
-) -> Result<(), Box<dyn std::error::Error>> {
-    proxy.method_call("org.freedesktop.ScreenSaver", "UnInhibit", (cookie,))?;
-    Ok(println!("ScreenSaver and Sleep re-enabled...Exiting!"))
-}
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let mut signals = Signals::new(&[SIGINT])?;
@@ -48,19 +27,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     );
     let prox_copy = proxy.clone();
 
-    let inhibit_cookie: u32 = inhibit(&proxy)?;
+    let inhibit_cookie: u32 = dogwatch::inhibit(&proxy)?;
     println!("Sleep and ScreenSaver Disabled...Press Cntrl+C to Exit...");
 
     thread::scope(|s| {
         s.spawn(move |_| {
             for _sig in signals.forever() {
-                uninhibit(&prox_copy, inhibit_cookie).unwrap();
+                dogwatch::uninhibit(&prox_copy, inhibit_cookie).unwrap();
                 process::exit(0x0100);
             }
         });
         s.spawn(move |_| {
             sleep(Duration::from_secs(60 * args.time));
-            uninhibit(&proxy, inhibit_cookie).unwrap();
+            dogwatch::uninhibit(&proxy, inhibit_cookie).unwrap();
             process::exit(0x0100);
         });
     })

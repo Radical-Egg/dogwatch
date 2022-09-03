@@ -21,3 +21,11 @@ assets = [
     { source = "LICENSE", dest = "/usr/share/doc/dogwatch/LICENSE", mode = "0644"},
     { source = "README.md", dest = "/usr/share/doc/dogwatch/README", mode = "0644"}
 ]
+
+[[bin]]
+name = "dogwatch"
+path = "src/main.rs"
+
+[lib]
+name = "dogwatch"
+path = "src/lib.rs"
