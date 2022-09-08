@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: dogwatch
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 License: MIT
 Summary: Prevent your machine from sleeping using dbus
@@ -10,7 +10,7 @@ Summary: Prevent your machine from sleeping using dbus
 # cd dogwatch && tito build --tgz
 Source0: %{name}-%{version}.tar.gz
 
-BuildRequires: rust cargo
+BuildRequires: rust cargo dbus-libs
 
 %description
 Prevent your machine from sleeping using dbus-rs bindings
@@ -34,6 +34,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/dogwatch
 
 %changelog
+* Wed Sep 07 2022 egg <egg95@protonmail.com> 1.0.1-1
+- added copr badge (45681670+Radical-Egg@users.noreply.github.com)
+- Automatic commit of package [dogwatch] release [1.0.0-1].
+  (egg95@protonmail.com)
+- added dbus-libs build req
 * Wed Sep 07 2022 egg <egg95@protonmail.com> 1.0.0-1
 - new package built with tito
 
