@@ -14,14 +14,17 @@ BuildRequires: rust cargo
 Prevent your machine from sleeping using dbus-rs bindings
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
-%cargo_prep
+%setup -q -n %{name}-%{version}.tar.gz
 
 %build
-%cargo_buildi -a
+%cargo_build -a
 
 %install
-%cargo_install -a
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/%{_bindir}
+cp %{name} $RPM_BUILD_ROOT/%{_bindir}
 
+%clean
+rm -rf $RPM_BUILD_ROOT
 %files
 %{_bindir}/dogwatch
