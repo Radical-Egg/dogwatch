@@ -29,3 +29,7 @@ path = "src/main.rs"
 [lib]
 name = "dogwatch"
 path = "src/lib.rs"
+
+[profile.release]
+strip = true
+lto = true
