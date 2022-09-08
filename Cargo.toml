@@ -1,6 +1,6 @@
 [package]
 name = "dogwatch"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 license = "MIT"
 description = "Prevent your computer from sleeping using dbus"
