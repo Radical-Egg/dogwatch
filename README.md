@@ -1,5 +1,4 @@
-# dogwatch ![Github CI](https://github.com/Radical-Egg/dogwatch/actions/workflows/rust.yml/badge.svg) [![Copr build status](https://copr.fedorainfracloud.org/coprs/egg95/dogwatch/package/dogwatch/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/egg95/dogwatch/package/dogwatch/)
-
+# dogwatch
 
 You've been working the dogwatch for a few weeks now. You just need a power nap to get you through the rest of the night. Your manager has heen working remote for the past two years but he could show back up any day now. If only there was a way to keep my computer from sleeping with a single command so that you can take a quick nap.
 
