@@ -9,7 +9,7 @@ use std::{process, thread::sleep, time::Duration};
 #[clap(author, version, about, long_about = None)]
 #[clap(name = "Dogwatch")]
 #[clap(author = "author1:R.Egg <egg95@protonmail.com> author2:S.Ordo <ordo83@protonmail.com")]
-#[clap(version = "1.0")]
+#[clap(version = "1.0.3")]
 #[clap(about = "This program will prevent machine from sleeping.", long_about = None)]
 struct Args {
     #[clap(short, long, value_parser, default_value_t = 4294967295)]
