@@ -14,7 +14,7 @@ BuildRequires: rust cargo
 Prevent your machine from sleeping using dbus-rs bindings
 
 %prep
-%setup -q -n %{name}-%{version}.tar.gz
+%autosetup
 
 %build
 %cargo_build -a
