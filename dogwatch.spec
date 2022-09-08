@@ -2,7 +2,7 @@
 
 Name: dogwatch
 Version: 1.0.0
-Release: 0%{?dist}
+Release: 1%{?dist}
 License: MIT
 Summary: Prevent your machine from sleeping using dbus
 
@@ -32,3 +32,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/dogwatch
+
+%changelog
+* Wed Sep 07 2022 egg <egg95@protonmail.com> 1.0.0-1
+- new package built with tito
+
