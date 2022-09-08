@@ -8,6 +8,15 @@ You've been working the dogwatch for a few weeks now. You just need a power nap 
 - Stay awake forever by running ```dogwatch```
 - Stay awake for a specific amount of time (minutes) ```dogwatch --time 1```
 
+## Installing
+
+This could be installed via a copr, otherwise head to the building section for how to build.
+
+```bash
+sudo dnf copr enable egg95/dogwatch
+sudo dnf install dogwatch
+```
+
 ## Building
 
 - If you are using a distro that uses RPMs you can download the RPM in the releases tab and install it with ```rpm -ivh```
@@ -24,6 +33,8 @@ You've been working the dogwatch for a few weeks now. You just need a power nap 
 
 
 ## Some notes
+
+This utility only works for Linux.
 
 This is my frist project in Rust. Rust seems pretty cool. I wanted to learn about Dbus and this seemed like a cool way to do that. I found some good resources for anyone who is looking into Dbus.
 
