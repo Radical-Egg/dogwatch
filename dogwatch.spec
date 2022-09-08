@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+
 Name: dogwatch
 Version: 1.0.0
 Release: 0%{?dist}
