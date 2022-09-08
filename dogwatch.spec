@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: dogwatch
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 License: MIT
 Summary: Prevent your machine from sleeping using dbus
@@ -34,6 +34,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/dogwatch
 
 %changelog
+* Thu Sep 08 2022 egg <egg95@protonmail.com> 1.0.3-1
+- updated version (egg95@protonmail.com)
+- strip symbols and enable LTO (juanbono94@gmail.com)
+- Update README.md (45681670+Radical-Egg@users.noreply.github.com)
+- Update README.md (45681670+Radical-Egg@users.noreply.github.com)
+
 * Wed Sep 07 2022 egg <egg95@protonmail.com> 1.0.2-1
 - replaced dbus-libs with dbus-devel 
 
