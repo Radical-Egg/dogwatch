@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: dogwatch
-Version: 1.0.3
+Version: 1.1.0
 Release: 1%{?dist}
 License: MIT
 Summary: Prevent your machine from sleeping using dbus
