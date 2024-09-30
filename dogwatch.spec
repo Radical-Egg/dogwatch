@@ -34,6 +34,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/dogwatch
 
 %changelog
+* Sun Sep 29 2024 Unknown name 1.1.0-1
+- Add functionality for Windows (luther.jaymen@gmail.com)
+- Update clap requirement from 3.2.18 to 4.1.11
+  (49699333+dependabot[bot]@users.noreply.github.com)
+
+* Sun Sep 29 2024 Unknown name
+- Add functionality for Windows (luther.jaymen@gmail.com)
+- Update clap requirement from 3.2.18 to 4.1.11
+  (49699333+dependabot[bot]@users.noreply.github.com)
+
+* Sun Sep 29 2024 Unknown name
+- Add functionality for Windows (luther.jaymen@gmail.com)
+- Update clap requirement from 3.2.18 to 4.1.11
+  (49699333+dependabot[bot]@users.noreply.github.com)
+
 * Thu Sep 08 2022 egg <egg95@protonmail.com> 1.0.3-1
 - updated version (egg95@protonmail.com)
 - strip symbols and enable LTO (juanbono94@gmail.com)
