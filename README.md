@@ -33,11 +33,11 @@ sudo dnf install dogwatch
 
 ## Some notes
 
-This utility only works for Linux.
-
 This is my frist project in Rust. Rust seems pretty cool. I wanted to learn about Dbus and this seemed like a cool way to do that. I found some good resources for anyone who is looking into Dbus.
-
+ 
 - [dbus-sample](https://github.com/makercrew/dbus-sample): This link is awesome and has a really good high level overview of dbus as well as a ton of useful links. There is also a sample cpp program on how to make a connection and introspect.
 - [dbus-rs](https://github.com/diwic/dbus-rs): D-Bus bindings for rust
 - [dbus tutorial](https://dbus.freedesktop.org/doc/dbus-tutorial.html): As you can tell by the CSS used on this webpage they would like to keep it strictly business
-- [Qdbusviewer](https://doc.qt.io/qt-6/qdbusviewer.html): I didn't find out about this until after I was done but this is a great way to mess around with Dbus before you start programming something. Here is the flathub link to download this jawn [flathub link](https://flathub.org/apps/details/io.qt.qdbusviewer)
+- [Qdbusviewer](https://doc.qt.io/qt-6/qdbusviewer.html): I didn't find out about this until after I was done but this is a great way to mess around with Dbus before you start programming something. Here is the flathub link to download this jawn - ----- [flathub link](https://flathub.org/apps/details/io.qt.qdbusviewer)
+
+I added functionality for this to work on Windows as well. I am using Windows a bit more and found it useful. It doesn't use dbus and instead uses SetThreadExecutionState to prevent sleepiness
