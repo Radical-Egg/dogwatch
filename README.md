@@ -7,15 +7,6 @@ You've been working the dogwatch for a few weeks now. You just need a power nap 
 - Stay awake forever by running ```dogwatch```
 - Stay awake for a specific amount of time (minutes) ```dogwatch --time 1```
 
-## Installing
-
-This could be installed via a copr, otherwise head to the building section for how to build.
-
-```bash
-sudo dnf copr enable egg95/dogwatch
-sudo dnf install dogwatch
-```
-
 ## Building
 
 - If you are using a distro that uses RPMs you can download the RPM in the releases tab and install it with ```rpm -ivh```
