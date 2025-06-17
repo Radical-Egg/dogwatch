@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install libbus deps
       run: sudo apt install libdbus-1-dev
     - name: Build
@@ -30,7 +30,7 @@ jobs:
       run: cargo install cargo-generate-rpm
     - name: Build rpm
       run: cargo generate-rpm
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: dogwatch
         path: ./target/generate-rpm/dogwatch*.rpm
