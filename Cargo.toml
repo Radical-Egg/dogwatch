@@ -13,12 +13,12 @@ clap = { version = "4.1.11", features = ["derive"] }
 
 [target. 'cfg(unix)'.dependencies]
 dbus = "0.9.6"
-signal-hook = "0.3.14"
+signal-hook = "0.4.1"
 crossbeam-utils = "0.8.11"
 
 [target. 'cfg(windows)'.dependencies]
 windows = "0.61.1"
-signal-hook = "0.3.16"
+signal-hook = "0.4.1"
 ctrlc = "3.4"
 
 [dependencies.windows]
